@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 function App() {
   
   const [blogs, setBlogs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   //To set blogs on page load
   useEffect(()=>{
@@ -28,7 +30,7 @@ function App() {
   //To add blog
   async function addBlogHandler(blog) {
     await api.post('/add-blog',blog);
-    setBlogs([...blogs, blog]);
+    setBlogs([...blogs, {...blog, timestamp: new Date().toISOString()}]);
   };
 
   //To delete blog
@@ -48,11 +50,22 @@ function App() {
     }))
   }
 
+  //To find blog from the searchTerm
+  async function findBlogHandler(searchTerm){
+    setSearchTerm(searchTerm);
+    if (searchTerm!==''){
+      const newBlogList = blogs.filter((blog)=>{
+        return blog.title.toLowerCase().includes(searchTerm.toLowerCase()) || blog.author.toLowerCase().includes(searchTerm.toLowerCase()) || blog.content.toLowerCase().includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newBlogList);
+    }
+  }
+
   return (
     <>
       <NavBar/>
       <Routes>
-        <Route path='/' element={<BlogList removeBlogHandler={removeBlogHandler} blogs={blogs}/>}/>
+        <Route path='/' element={<BlogList removeBlogHandler={removeBlogHandler} searchTerm={searchTerm} findBlogHandler={findBlogHandler} blogs={searchTerm.length < 1 ? blogs: searchResults}/>}/>
         <Route path='/add-blog' element={<AddBlog addBlogHandler={addBlogHandler}/>}/>
         <Route path='/edit-blog/:id' element={<EditBlog editBlogHandler={editBlogHandler}/>}/>
         <Route path='/blog/:id' element={<BlogDetail/>}/>
