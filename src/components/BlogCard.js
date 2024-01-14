@@ -13,7 +13,7 @@ function BlogCard(props){
                 <p>{props.blog.content}</p>
             </Link>
             
-            <button><EditIcon/></button>
+            <Link to={`/edit-blog/${props.blog.id}`} state={{blog:props.blog}}><button><EditIcon/></button></Link>
             <button onClick={() => {props.removeBlogHandler(props.blog.id)}}><DeleteForeverIcon/></button>
         </div>
     );

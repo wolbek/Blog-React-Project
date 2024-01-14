@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import AddBlog from "./pages/AddBlog";
+import EditBlog from "./pages/EditBlog";
 import BlogDetail from "./pages/BlogDetail";
 import BlogList from "./pages/BlogList";
 import api from './api/contact';
@@ -32,12 +33,19 @@ function App() {
 
   //To delete blog
   async function removeBlogHandler(id){
-    console.log(id,'blogid');
     await api.post('/delete-blog',{id});
     const newBlogList = blogs.filter((blog)=>{
       return blog.id!==id;
     })
     setBlogs(newBlogList);
+  }
+
+  //To edit blog
+  async function editBlogHandler(editedBlog){
+    await api.post('/update-blog',editedBlog);
+    setBlogs(blogs.map((blog)=>{
+      return blog.id===editedBlog.id ? editedBlog : blog;
+    }))
   }
 
   return (
@@ -46,6 +54,7 @@ function App() {
       <Routes>
         <Route path='/' element={<BlogList removeBlogHandler={removeBlogHandler} blogs={blogs}/>}/>
         <Route path='/add-blog' element={<AddBlog addBlogHandler={addBlogHandler}/>}/>
+        <Route path='/edit-blog/:id' element={<EditBlog editBlogHandler={editBlogHandler}/>}/>
         <Route path='/blog/:id' element={<BlogDetail/>}/>
       </Routes>
     
