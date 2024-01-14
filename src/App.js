@@ -26,15 +26,25 @@ function App() {
 
   //To add blog
   async function addBlogHandler(blog) {
-    const response = await api.post('/add-blog',blog);
+    await api.post('/add-blog',blog);
     setBlogs([...blogs, blog]);
   };
+
+  //To delete blog
+  async function removeBlogHandler(id){
+    console.log(id,'blogid');
+    await api.post('/delete-blog',{id});
+    const newBlogList = blogs.filter((blog)=>{
+      return blog.id!==id;
+    })
+    setBlogs(newBlogList);
+  }
 
   return (
     <>
       <NavBar/>
       <Routes>
-        <Route path='/' element={<BlogList blogs={blogs}/>}/>
+        <Route path='/' element={<BlogList removeBlogHandler={removeBlogHandler} blogs={blogs}/>}/>
         <Route path='/add-blog' element={<AddBlog addBlogHandler={addBlogHandler}/>}/>
         <Route path='/blog/:id' element={<BlogDetail/>}/>
       </Routes>

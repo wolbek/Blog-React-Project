@@ -6,7 +6,7 @@ function BlogList(props){
 
     const allblogs = props.blogs.map((blog) => {
         return (
-            <BlogCard blog={blog}/>
+            <BlogCard removeBlogHandler={props.removeBlogHandler} blog={blog}/>
         );
         
     })
