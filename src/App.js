@@ -10,12 +10,10 @@ function App() {
   
   const [blogs, setBlogs] = useState([]);
 
- 
-
   //To set blogs on page load
   useEffect(()=>{
 
-    const getAllBlogs = async () => {
+    async function getAllBlogs() {
       const allBlogs = await api.get('/blogs');
       if(allBlogs.data){
         setBlogs(allBlogs.data['blogs']);
@@ -26,12 +24,18 @@ function App() {
 
   },[]);
 
+  //To add blog
+  async function addBlogHandler(blog) {
+    const response = await api.post('/add-blog',blog);
+    setBlogs([...blogs, blog]);
+  };
+
   return (
     <>
       <NavBar/>
       <Routes>
         <Route path='/' element={<BlogList blogs={blogs}/>}/>
-        <Route path='/add-blog' element={<AddBlog/>}/>
+        <Route path='/add-blog' element={<AddBlog addBlogHandler={addBlogHandler}/>}/>
         <Route path='/blog/:id' element={<BlogDetail/>}/>
       </Routes>
     

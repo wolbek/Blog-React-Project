@@ -1,5 +1,6 @@
 import './BlogList.css';
 import BlogCard from '../components/BlogCard';
+import { Link } from 'react-router-dom';
 
 function BlogList(props){
 
@@ -12,6 +13,7 @@ function BlogList(props){
 
     return (
         <>
+            <Link to='/add-blog'><button type='submit'>Add Blog</button></Link>
             <div> {allblogs} </div>
         </>
     );
