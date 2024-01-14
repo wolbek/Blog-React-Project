@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function BlogCard(props){
     return (
         <div class='blog-card'>
-            <Link to={`/blog/${props.blog.id}`} state={{blog:props.blog}}>
+            <Link to={`/blog/${props.blog.id}`} state={{blog:props.blog}} style={{ textDecoration: 'none' }}>
                 <h3>{props.blog.title}</h3>
                 <h5>{props.blog.author}</h5>
                 <h6>{props.blog.timestamp}</h6>

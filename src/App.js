@@ -6,6 +6,7 @@ import BlogDetail from "./pages/BlogDetail";
 import BlogList from "./pages/BlogList";
 import api from './api/contact';
 import { useState, useEffect } from "react";
+import './App.css';
 
 function App() {
   
