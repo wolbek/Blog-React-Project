@@ -14,24 +14,22 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
+  async function getAllBlogs() {
+    const allBlogs = await api.get('/blogs');
+    if(allBlogs.data){
+      setBlogs(allBlogs.data['blogs']);
+    }
+  }
+
   //To set blogs on page load
   useEffect(()=>{
-
-    async function getAllBlogs() {
-      const allBlogs = await api.get('/blogs');
-      if(allBlogs.data){
-        setBlogs(allBlogs.data['blogs']);
-      }
-    }
-
     getAllBlogs();
-
   },[]);
 
   //To add blog
   async function addBlogHandler(blog) {
     await api.post('/add-blog',blog);
-    setBlogs([...blogs, {...blog, timestamp: new Date().toISOString()}]);
+    getAllBlogs();
   };
 
   //To delete blog
