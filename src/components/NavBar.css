@@ -10,3 +10,12 @@
     color: white;
     margin-bottom: 20px;
 }
+
+#home-link{
+    text-decoration: none;
+    color: white;
+}
+
+#home-link:hover{
+    color: rgb(0, 69, 230);
+}

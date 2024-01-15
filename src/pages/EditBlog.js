@@ -44,24 +44,28 @@ function EditBlog(props){
 
     return (
         <>
-            <h1>Edit Blog</h1>
-            <form onSubmit={editBlog}>
-                <div>
-                    <label>Title</label>
-                    <input type='text' name='title' placeholder='Enter title' onChange={titleChangeHandler} value={userInput.title}/>
-                </div>
-                <div>
-                    <label>Author</label>
-                    <input type='text' name='author' placeholder='Enter author' onChange={authorChangeHandler} value={userInput.author}/>
-                </div>
-                <div>
-                    <label>Content</label>
-                    <textarea type='text' name='content' placeholder='Enter content' onChange={contentChangeHandler} value={userInput.content} rows="4" cols="50"/>
-                </div>
-                
-                <button type='submit'>Edit Blog</button>
-            </form>
-
+            <div id='edit-blog-container'>
+                <h1>Edit Blog</h1>
+                <form onSubmit={editBlog}>
+                    <div>
+                        <label>Title</label>
+                        <br/>
+                        <input type='text' name='title' placeholder='Enter title' onChange={titleChangeHandler} value={userInput.title}/>
+                    </div>
+                    <div>
+                        <label>Author</label>
+                        <br/>
+                        <input type='text' name='author' placeholder='Enter author' onChange={authorChangeHandler} value={userInput.author}/>
+                    </div>
+                    <div>
+                        <label>Content</label>
+                        <br/>
+                        <textarea type='text' name='content' placeholder='Enter content' onChange={contentChangeHandler} value={userInput.content} rows="4" cols="50"/>
+                    </div>
+                    
+                    <button type='submit' className='edit-blog-blue-btn'>Edit Blog</button>
+                </form>
+            </div>
         </>
     );
 }

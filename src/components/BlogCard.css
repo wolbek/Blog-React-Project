@@ -1,11 +1,14 @@
 .blog-card{
     margin: auto;
     max-width: 80%;
-    /* border: 1px solid black; */
     border-radius: 20px;
     margin-bottom: 20px;
     padding: 10px 30px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     background-color: white;
-    
+}
+
+.link-styles{
+    text-decoration: none;
+    color:black;
 }
