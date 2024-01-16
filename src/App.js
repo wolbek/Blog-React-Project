@@ -4,15 +4,28 @@ import AddBlog from "./pages/AddBlog";
 import EditBlog from "./pages/EditBlog";
 import BlogDetail from "./pages/BlogDetail";
 import BlogList from "./pages/BlogList";
-import api from './api/contact';
+import LoginForm from "./pages/LoginForm";
+import SignupForm from "./pages/SignupForm";
+import api from './api/blog';
 import { useState, useEffect } from "react";
 import './App.css';
+import { Navigate } from "react-router-dom";
 
 function App() {
   
   const [blogs, setBlogs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [token, setToken] = useState('');
+
+  function handleLogin(newToken){
+    setToken(newToken);
+  };
+
+  function handleLogout(){
+    setToken('');
+    <Navigate to='/login'/>
+  };
 
   async function getAllBlogs() {
     const allBlogs = await api.get('/blogs');
@@ -63,12 +76,18 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+      {token? <NavBar onLogout={handleLogout}/>:''}
+
       <Routes>
-        <Route path='/' element={<BlogList removeBlogHandler={removeBlogHandler} searchTerm={searchTerm} findBlogHandler={findBlogHandler} blogs={searchTerm.length < 1 ? blogs: searchResults}/>}/>
-        <Route path='/add-blog' element={<AddBlog addBlogHandler={addBlogHandler}/>}/>
-        <Route path='/edit-blog/:id' element={<EditBlog editBlogHandler={editBlogHandler}/>}/>
-        <Route path='/blog/:id' element={<BlogDetail/>}/>
+
+        <Route path="/" element={token ? <BlogList removeBlogHandler={removeBlogHandler} searchTerm={searchTerm} findBlogHandler={findBlogHandler} blogs={searchTerm.length < 1 ? blogs: searchResults}/> : <Navigate to="/login" />}/>
+        <Route path='/add-blog' element={token ? <AddBlog addBlogHandler={addBlogHandler}/>: <Navigate to="/login" />}/>
+        <Route path='/edit-blog/:id' element={token ? <EditBlog editBlogHandler={editBlogHandler}/>: <Navigate to="/login" />}/>
+        <Route path='/blog/:id' element={token ? <BlogDetail/> : <Navigate to="/login" />}/>
+
+        <Route path='/signup' element={<SignupForm/>}/>
+        <Route path='/login' element={<LoginForm onLogin={handleLogin}/>}/>
+
       </Routes>
     
     </>

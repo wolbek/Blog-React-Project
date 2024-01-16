@@ -14,8 +14,17 @@
 #home-link{
     text-decoration: none;
     color: white;
+    margin-right: 25px;
 }
 
-#home-link:hover{
+#home-link:hover, #logout-btn:hover{
     color: rgb(0, 69, 230);
+}
+
+#logout-btn{
+    text-decoration: none;
+    background: none;
+    color: white;
+    border: none;
+    font-size: 15px;
 }
