@@ -10,7 +10,7 @@ function BlogDetail(){
             <div id='blog-detail-container'>
                 <h1>{location.state.blog.title}</h1>
                 <h3>{location.state.blog.author}</h3>
-                <h4>{location.state.blog.timestamp}</h4>
+                <h4>{location.state.blog.createdAt}</h4>
                 <p>{location.state.blog.content}</p>
             </div>
             

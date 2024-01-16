@@ -34,6 +34,7 @@ function EditBlog(props){
         }
         props.editBlogHandler(userInput);
         setUserInput({
+            ...userInput,
             title:'',
             author:'',
             content:''

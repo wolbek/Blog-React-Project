@@ -19,6 +19,7 @@ function App() {
     if(allBlogs.data){
       setBlogs(allBlogs.data['blogs']);
     }
+    console.log(allBlogs);
   }
 
   //To set blogs on page load
@@ -34,9 +35,9 @@ function App() {
 
   //To delete blog
   async function removeBlogHandler(id){
-    await api.post('/delete-blog',{id});
+    await api.post('/delete-blog',{id:id});
     const newBlogList = blogs.filter((blog)=>{
-      return blog.id!==id;
+      return blog._id!==id;
     })
     setBlogs(newBlogList);
   }
@@ -45,7 +46,7 @@ function App() {
   async function editBlogHandler(editedBlog){
     await api.post('/update-blog',editedBlog);
     setBlogs(blogs.map((blog)=>{
-      return blog.id===editedBlog.id ? editedBlog : blog;
+      return blog._id===editedBlog._id ? editedBlog : blog;
     }))
   }
 
